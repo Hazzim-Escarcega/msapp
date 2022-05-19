@@ -2,7 +2,7 @@ spring:
   jpa:
     defer-datasource-initialization: true
   application:
-    name: product-service
+    name: customer-service
   cloud:
     config:
       uri: http://localhost:3333
