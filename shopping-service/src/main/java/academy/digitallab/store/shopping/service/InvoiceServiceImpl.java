@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Slf4j
+@Slf4j  
 @Service
 public class InvoiceServiceImpl implements InvoiceService {
     @Autowired
@@ -24,8 +24,10 @@ public class InvoiceServiceImpl implements InvoiceService {
     @Autowired
     InvoiceItemsRepository invoiceItemsRepository;
 
+    
     @Autowired
     CustomerClient customerClient;
+
     @Autowired
     ProductClient productClient;
 
@@ -44,7 +46,7 @@ public class InvoiceServiceImpl implements InvoiceService {
         invoice.setState("CREATED");
         invoiceDB = invoiceRepository.save(invoice);
         invoiceDB.getItems().forEach(invoiceItem -> {
-            productClient.updateStockProduct(invoiceItem.getProductId(), invoiceItem.getQuantity() + -1);
+            productClient.updateStockProduct(invoiceItem.getProductId(), invoiceItem.getQuantity() * -1);
         });
         return invoiceDB;
     }
