@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
-@FeignClient(name="product-service", path="/products", url="http://localhost:8091")
+@FeignClient(name="product-service")
 public interface ProductClient {
     @GetMapping(value = "/products/{id}")
     public ResponseEntity<Product> getProduct(@PathVariable("id") Long id);
