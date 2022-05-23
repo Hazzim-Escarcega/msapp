@@ -4,6 +4,7 @@ import academy.digitallab.store.shopping.entity.Invoice;
 import academy.digitallab.store.shopping.service.InvoiceService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,6 +28,7 @@ public class InvoiceRest {
 
     // ------------------ Retrieve All Invoices ------------------------------------
     @GetMapping
+    @HystrixCommand
     public ResponseEntity<List<Invoice>> listAllInvoices() {
         List<Invoice> invoices = invoiceService.findInvoiceAll();
         if (invoices.isEmpty()) {
@@ -37,6 +39,7 @@ public class InvoiceRest {
 
     // ------------------ Retrieve Single Invoice ----------------------------------
     @GetMapping(value = "/{id}")
+    @HystrixCommand
     public ResponseEntity<Invoice> getInvoice(@PathVariable("id") long id) {
         log.info("Fetching Invoice with id {}", id);
         Invoice invoice  = invoiceService.getInvoice(id);
@@ -49,6 +52,7 @@ public class InvoiceRest {
 
     // ------------------ Create a Invoice -----------------------------------------
     @PostMapping
+    @HystrixCommand
     public ResponseEntity<Invoice> createInvoice(@Valid @RequestBody Invoice invoice, BindingResult result) {
         log.info("Creating Invoice : {}", invoice);
         if (result.hasErrors()){
@@ -61,6 +65,7 @@ public class InvoiceRest {
 
     // ------------------- Update a Invoice ----------------------------------------
     @PutMapping(value = "/{id}")
+    @HystrixCommand
     public ResponseEntity<?> updateInvoice(@PathVariable("id") long id, @RequestBody Invoice invoice) {
         log.info("Updating Invoice with id {}", id);
 
@@ -76,6 +81,7 @@ public class InvoiceRest {
 
     // ------------------- Delete a Invoice ----------------------------------------
     @DeleteMapping(value = "/{id}")
+    @HystrixCommand
     public ResponseEntity<Invoice> deleteInvoice(@PathVariable("id") long id) {
         log.info("Fetching & Deleting Invoice with id {}", id);
 
