@@ -41,9 +41,10 @@ eureka:
       defaultZone: http://localhost:8099/eureka/
 feign:
   hystrix:
-    enabled: true
     dashboard:
-      proxy-stream-allow-list: "http://localhost:8093/actuator/hystrix.stream"
+      proxy-stream-allow-list: "*"
+    enabled: true
+    
   circuitbreaker:
     enabled: true
   
